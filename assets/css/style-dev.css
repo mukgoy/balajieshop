@@ -1,0 +1,85 @@
+.d-none{
+	display:none;
+}
+.d-block{
+	display:block;
+}
+.d-flex{
+	display:flex;
+}
+.m0{
+	margin:0px !important;
+}
+.p0{
+	padding:0px;
+}
+.rounded-0,.rounded-0 .selectpicker{
+	border-radius: 0;
+}
+
+.header .header-logo li a {
+
+    color: #212121;
+    font-size: 17px;
+
+}
+.canvas-box .search-input-group{
+	height: 52px;
+	box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+}
+.canvas-box .canvas-box-text{
+	width: 100%;
+	text-align: left;
+}
+.canvas-box span,.search-box input{
+	border: 0;
+	background: transparent;
+	height: inherit;
+	box-shadow: none;
+}
+.canvas-box span:focus,.search-box input:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.canvas-box .input-group-addon {
+    color: #fff;
+	padding: 6px 18px;
+}
+.canvas-box .list-group{
+	border: 0;
+}
+.canvas-box  .list-group-item{
+	box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+	border: 0;
+	border-radius: 0;
+}
+
+.dish-list h4{
+	font-size:14px;
+}
+.menu .dish-list-text h5{
+	display: inline-block;
+}
+.menu-list .dish-list img{
+	margin-right: 0px;
+}
+.menu .tab-content li {
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+	margin: 8px 0px 5px;
+}
+.menu-list .tab-content li .dish-list {
+    margin-top: 5px;
+}
+
+.page-cover .fa {
+    position: relative;
+    top: 2px;
+    font-size: 18px;
+}
+.menu .dish-list-text h5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+

@@ -1,0 +1,75 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Product By category{{product}}
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<form role="form" ng-init="categories2update=1;categories3update=1;">
+							<div class="form-group">
+								<label>Title</label>
+								<input class="form-control" ng-model="product.title">
+								<p class="help-block alert-danger" ng-bind-html="product.error.title"></p>
+							</div>
+							<div class="form-group" ng-init="brands!='' || getlist('brands')">
+								<label>Brands{{product.brand_id}}</label>
+								<select class="form-control"
+									data-live-search="true"
+									data-selectpicker
+									data-collection-name="brands"
+									ng-model="product.brand_id"
+									ng-options="item.brand_id as item.title for item in brands"
+								></select>
+			
+							</div>
+							<div class="form-group" ng-init="categories1!='' || getlist('categories1')">
+								<label>Category1</label>
+								<select class="form-control"
+									ng-change="categories2update = -categories2update"
+									data-live-search="true"
+									data-selectpicker
+									data-collection-name="categories1"
+									ng-model="product.cat1_id"
+									ng-options="item.cat1_id as item.title for item in categories1"
+								></select>
+								
+							</div>
+							<div class="form-group" ng-init="categories2!='' || getlist('categories2')">
+								<label>Category2{{product.cat1_id}}-{{categories2update}}</label>
+								<select class="form-control"
+									ng-change="categories3update = -categories3update"
+									data-live-search="true"
+									data-selectpicker
+									data-collection-name="categories2update"
+									ng-model="product.cat2_id"
+									ng-options="item.cat2_id as item.title for item in categories2 | filter: {cat1_id:product.cat1_id}"
+								></select>
+							</div>
+							<div class="form-group" ng-init="categories3!='' || getlist('categories3')">
+								<label>Category3{{product.cat3_id}}</label>
+								<select class="form-control"
+									data-live-search="true"
+									data-selectpicker
+									data-collection-name="categories3update"
+									ng-model="product.cat3_id"
+									ng-options="item.cat3_id as item.title for item in categories3 | filter: {cat2_id:product.cat2_id}"
+								></select>
+							</div>
+							<div class="form-group">
+								<label>Popularity</label>
+								<input class="form-control selectpicker" ng-model="product.popularity">
+								<p class="help-block">Example block-level help text here.</p>
+							</div>		
+							<button class="btn btn-primary" type="button" ng-click="ngOk(product)">OK</button>
+							<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+						</form>
+					</div>
+				</div>
+				<!-- /.row (nested) -->
+			</div>
+			<!-- /.panel-body -->
+		</div>
+	</div>
+</div>

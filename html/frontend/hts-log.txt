@@ -1,0 +1,26 @@
+HTTrack3.49-2+htsswf+htsjava launched on Thu, 21 Jun 2018 18:48:44 at http://kiswa.net/themes/star-restaurant/orange-restaurant/restaurant.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" http://kiswa.net/themes/star-restaurant/orange-restaurant/restaurant.html -O1 "E:\xampp1\htdocs\test\test\test" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+18:55:40	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/fonts/glyphicons-halflings-regular.eot (from kiswa.net/themes/star-restaurant/orange-restaurant/css/bootstrap.min.css)
+18:55:40	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/fonts/glyphicons-halflings-regular.eot? (from kiswa.net/themes/star-restaurant/orange-restaurant/css/bootstrap.min.css)
+18:55:40	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/fonts/glyphicons-halflings-regular.woff2 (from kiswa.net/themes/star-restaurant/orange-restaurant/css/bootstrap.min.css)
+18:55:40	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/fonts/glyphicons-halflings-regular.woff (from kiswa.net/themes/star-restaurant/orange-restaurant/css/bootstrap.min.css)
+18:55:40	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/fonts/glyphicons-halflings-regular.ttf (from kiswa.net/themes/star-restaurant/orange-restaurant/css/bootstrap.min.css)
+18:55:40	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/fonts/glyphicons-halflings-regular.svg (from kiswa.net/themes/star-restaurant/orange-restaurant/css/bootstrap.min.css)
+18:55:41	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/css/fonts/flexslider-icon.eot (from kiswa.net/themes/star-restaurant/orange-restaurant/css/flexslider.css)
+18:55:41	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/css/fonts/flexslider-icon.eot? (from kiswa.net/themes/star-restaurant/orange-restaurant/css/flexslider.css)
+18:55:41	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/css/fonts/flexslider-icon.woff (from kiswa.net/themes/star-restaurant/orange-restaurant/css/flexslider.css)
+18:55:41	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/css/fonts/flexslider-icon.ttf (from kiswa.net/themes/star-restaurant/orange-restaurant/css/flexslider.css)
+18:55:41	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/css/fonts/flexslider-icon.svg (from kiswa.net/themes/star-restaurant/orange-restaurant/css/flexslider.css)
+18:55:41	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/css/grabbing.png (from kiswa.net/themes/star-restaurant/orange-restaurant/css/owl.carousel.css)
+18:55:41	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/css/AjaxLoader.gif (from kiswa.net/themes/star-restaurant/orange-restaurant/css/owl.theme.css)
+18:55:48	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/forgot-password.html (from kiswa.net/themes/star-restaurant/orange-restaurant/login.html)
+18:55:48	Error: 	"Not Found" (404) at link kiswa.net/themes/star-restaurant/orange-restaurant/img/controls.png (from kiswa.net/themes/star-restaurant/orange-restaurant/css/lightslider.css)
+
+HTTrack Website Copier/3.49-2 mirror complete in 7 minutes 4 seconds : 226 links scanned, 210 files written (11915125 bytes overall) [10993554 bytes received at 25928 bytes/sec], 1144010 bytes transferred using HTTP compression in 41 files, ratio 13%, 2.1 requests per connection
+(15 errors, 0 warnings, 0 messages)

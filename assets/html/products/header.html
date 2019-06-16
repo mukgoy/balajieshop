@@ -1,0 +1,229 @@
+<div ng-controller="headerCtrl">
+<!--============ SIDE-NAV =============-->
+<div class="sidenav-content">
+	<div id="mySidenav" class="sidenav" >
+		<div id="web-name">
+			<h2><span><i class="far fa-star"></i></span> <br/> <span>Res</span>taurant</h2>             	
+			<ul class="main-menu-social list-unstyled list-inline text-center">
+				<li><a ng-href="#"><span><i class="fab fa-facebook-f"></i></span></a></li>
+				<li><a ng-href="#"><span><i class="fab fa-pinterest"></i></span></a></li>
+				<li><a ng-href="#"><span><i class="fab fa-dribbble"></i></span></a></li>
+				<li><a ng-href="#"><span><i class="fab fa-google-plus-g"></i></span></a></li>
+			</ul>  
+		</div><!-- end web-name -->
+
+		<div id="main-menu">
+			<div class="sidenav-closebtn">
+				<button class="btn btn-default" id="sidenav-close">&times;</button>
+			</div>
+			<ul class="list-group panel">
+				<li>
+					<a ng-href="{{baseUrl}}" ng-class="{'active':isActive('/')}" class="list-group-item"><span><i class="fa fa-home sidebar-icon"></i></span>Home</a>
+				</li>
+				<li ng-repeat="cat1 in categories">
+					<a class="list-group-item" data-target="#cat1{{cat1.cat1_id}}" data-toggle="collapse" data-parent="#main-menu">
+						<span><i class="fa fa-puzzle-piece sidebar-icon"></i></span>{{cat1.title}}
+						<span><i class="fa fa-caret-down arrow"></i></span>
+					</a>
+					<ul class="collapse sub-menu mega-sub-menu" id="cat1{{cat1.cat1_id}}" style=" padding: 0px;">
+						<li>
+							<a class="list-group-item"
+								ng-href="{{baseUrl}}products/cat1/{{cat1.title}}" 
+								ng-class="{'active':isActive('/products/cat1/'+cat1.title)}">
+							All {{cat1.title}}
+							</a>
+						</li>
+						<li ng-repeat="cat2 in cat1.cat2">
+							<a data-target="#cat2{{cat2.cat2_id}}" class="list-group-item" data-toggle="collapse">{{cat2.title}}<span><i class="fa fa-caret-down arrow"></i></span></a>
+							<div class="collapse sub-menu mega-sub-menu-links" id="cat2{{cat2.cat2_id}}">
+								<a class="list-group-item"
+									ng-href="{{baseUrl}}products/cat2/{{cat2.title}}" 
+									ng-class="{'active':isActive('/products/cat2/'+cat2.title)}">
+								All {{cat2.title}}
+								</a>
+								<a class="list-group-item"
+									ng-href="{{baseUrl}}products/cat3/{{cat3.title}}" 
+									ng-repeat="cat3 in cat2.cat3"
+									ng-class="{'active':isActive('/products/cat3/'+cat3.title)}">
+								{{cat3.title}}
+								</a>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a ng-href="contact.html" class="list-group-item">
+						<span><i class="fa fa-phone sidebar-icon"></i></span>Contact Us
+					</a>
+				</li>
+				<li>
+					<a ng-href="login.html" class="list-group-item">
+						<span><i class="fa fa-lock sidebar-icon"></i></span>Login
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!--================ SHOPPING-CART ==============-->
+<div id="shopping-cart-sidebar" class="shc-sidebar">
+	<ul class="list-unstyled cart-list">
+		<li>
+			<div class="cart-item">
+				<div class="item-text dish-list-text">
+					<h4><a ng-href="#">Breakfast-3</a></h4>
+					<p>Lorem ipsum,dolor</p>
+					<h5>Qty: <input type="number" class="form-control" min="1" value="1"> x $45</h5>
+				</div><!-- end item-text -->
+
+				<div class="item-img">
+					<a ng-href="#"><img src="assets/images/dish-breakfast-3.png" class="img-responsive" alt="cart-item-img" /></a>
+				</div><!-- end item-img -->
+				
+				<h4 class="total">Total: <span>$45</span></h4>
+				
+				<div class="item-close">
+					<button class="btn"><span><i class="fa fa-times-circle"></i></span></button>
+				</div><!-- end item-close -->
+			</div><!-- end cart-item -->
+		</li>
+		
+		<li>
+			<div class="cart-item">
+				<div class="item-text dish-list-text">
+					<h4><a ng-href="#">Dinner-4</a></h4>
+					<p>Lorem ipsum,dolor</p>
+					<h5>Qty: <input type="number" class="form-control" min="1" value="1"> x $45</h5>
+				</div><!-- end item-text -->
+
+				<div class="item-img">
+					<a ng-href="#"><img src="assets/images/dish-dinner-4.png" class="img-responsive" alt="cart-item-img" /></a>
+				</div><!-- end item-img -->
+				
+				<h4 class="total">Total: <span>$45</span></h4>
+				
+				<div class="item-close">
+					<button class="btn"><span><i class="fa fa-times-circle"></i></span></button>
+				</div><!-- end item-close -->
+			</div><!-- end cart-item -->
+		</li>
+	</ul>
+	
+	<div class="cart-info text-right">
+		<h4>Item(s) : <span>2</span></h4>
+		<h4>Total Price: <span>$90.00</span></h4>
+		<a ng-href="shopping-cart.html" class="btn btn-black">View Cart</a>
+		<a ng-href="checkout.html" class="btn btn-orange">Checkout</a>
+	</div><!-- end cart-info -->
+</div><!-- shopping-cart-sidebar -->
+
+<!--============== USER-PROFILE-SIDEBAR =============-->
+<div id="user-profile-sidebar" class="user-prf-sidebar">
+	<div class="user-prf-sidebar-img text-center" style="background:url('{{cdnUrl}}assets/images/usr-prf-back-restaurant.jpg'); background-size:cover;">
+		<div class="overlay">
+			<img ng-src="{{cdnUrl}}assets/images/noprofile.gif" class="img-responsive img-circle" alt="user-profile" />
+			<h3>-- James Anderson --</h3>
+		</div><!-- end overlay -->
+	</div><!-- end user-prf-sidebar-img -->
+	
+	<div class="user-prf-sidebar-links">
+		<ul class="list-unstyled">
+			<li><a ng-href="user-profile.html"><span><i class="fa fa-user"></i></span>My Profile</a></li>
+			<li><a ng-href="edit-profile.html"><span><i class="fa fa-pencil-alt"></i></span>Edit Profile</a></li>
+			<li><a ng-href="forget-password.html"><span><i class="fa fa-question"></i></span>Forget Password</a></li>
+			<li><a ng-href="reset-password.html"><span><i class="fa fa-sync"></i></span>Reset Password</a></li>
+			<li><a ng-href="#"><span><i class="fa fa-sign-out-alt"></i></span>Sign Out</a></li>
+		</ul>
+	</div><!-- end user-prf-sidebar-links -->
+</div><!-- end user-profile-sidebar -->
+
+<!--========= Search-page =========-->
+<div class="canvas canvas-box search-box">
+	<div class="btn-orange">
+		<div class="form-group input-group search-input-group m0">
+			<span class="input-group-addon main-box-open"><i class="fa fa-arrow-left"></i></span>
+			<input class="form-control p0 search-input" type="text" placeholder="SEARCH"
+				ng-model="search_key" 
+				ng-keyup="search_autocomplete()">
+			<span class="input-group-addon search-input-icon" ng-if="search_key==''">
+				<i class="fa fa-search"></i>
+			</span>
+			<span class="input-group-addon search-input-icon" ng-if="search_key!=''" ng-click="$parent.search_key='';search_autocomplete();">
+				<i class="fa fa-times"></i>
+			</span>
+		</div>
+	</div>
+	<div class="btn-orange" ng-if="search_autocomplete_data.length>0">
+		<div class="list-group panel">
+			<a href="contact.html" class="list-group-item"
+			ng-repeat="list in search_autocomplete_data">{{list.title}}</a>
+		</div>
+	</div>
+</div><!--========= end Search-page =========-->
+
+<!--========= Filter-page =========-->
+<div class="canvas canvas-box filter-box">
+	<div class="btn-orange">
+		<div class="form-group input-group search-input-group m0">
+			<span class="input-group-addon main-box-open"><i class="fa fa-arrow-left"></i></span>
+			<span class="input-group-addon canvas-box-text">Filter By</span>
+		</div>
+	</div>
+	<div class="btn-orange_">
+		<div class="list-group panel">
+			<div class="filter-box">
+				<div class="col-xs-12">
+					<div class="col-xs-12 p0">
+						<label>Price Range</label>
+					</div>
+					<div class="col-xs-6 p0">
+						<input class="form-control rounded-0" placeholder="Price" type="text">
+					</div>
+					<div class="col-xs-6 p0">
+						<input class="form-control rounded-0" placeholder="Price" type="text">
+					</div>
+					</br>
+					<div class="col-xs-12 p0" style="padding-top: 15px;">
+						<label>Brands</label>
+					</div>
+					<div class="col-xs-12 p0">
+						<select class="selectpicker rounded-0 form-control" multiple="" data-live-search="true" tabindex="-98">
+						  <option value="Mustard">Mustard</option>
+						  <option value="Ketchup">Ketchup</option>
+						  <option value="Relish">Relish</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--========= end Search-page =========-->
+
+<!--========= product-sort-page =========-->
+<div class="canvas canvas-box sort-box">
+	<div class="btn-orange">
+		<div class="form-group input-group search-input-group m0">
+			<span class="input-group-addon main-box-open"><i class="fa fa-arrow-left"></i></span>
+			<span class="input-group-addon canvas-box-text">Sort By</span>
+		</div>
+	</div>
+	<div class="btn-orange">
+		<div class="list-group panel">
+			<button href="contact.html"	class="list-group-item">
+				<span><i class="fa fa-sort-amount-down"></i></span>
+				<span style="margin-left: 5px;">Popularity</span>
+			</button>
+			<button href="contact.html"	class="list-group-item">
+				<span><i class="fa fa-sort-amount-down"></i></span>
+				<span style="margin-left: 5px;">Price</span>
+			</button>
+			<button href="contact.html"	class="list-group-item">
+				<span><i class="fa fa-sort-amount-down"></i></span>
+				<span style="margin-left: 5px;">Title</span>
+			</button>
+		</div>
+	</div>
+</div><!--========= end Search-page =========-->
+
+</div>

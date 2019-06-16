@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/15529496/a-way-to-know-when-angular-http-is-requesting

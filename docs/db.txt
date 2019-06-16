@@ -1,0 +1,59 @@
+SET SQL_SAFE_UPDATES = 0;
+
+products
+	product_id
+	title
+	brand_id
+	cat1_id
+	cat2_id
+	cat3_id
+	popularity
+	status
+	modified
+	
+product_variants
+	product_variant_id
+	product_id
+	variant_title
+	image
+	mrp
+	buy_price
+	sell_price
+	discount_title
+	stock
+	status
+	modified
+	best_price_item_no
+	barcode
+	
+
+order_products
+	order_product_id
+	order_id
+	product_id
+	product_variant_id
+	qty
+	mrp
+	sell_price
+	modified
+	
+users
+	user_id
+	email
+	mobile
+	password
+	fullname
+	address
+	area_id
+	pincode
+	city
+	lastlogin
+	
+carts
+	
+orders
+	order_id	user_id	mobile	address	area_id	pincode	city	areas	area_id	title
+brands	brand_id	title
+categories1	cat1_id	title	
+categories2	cat2_id	cat1_id	title	
+categories3	cat3_id	cat2_id	title
