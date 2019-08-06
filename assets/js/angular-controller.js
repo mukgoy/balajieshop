@@ -91,6 +91,26 @@ mainApp.controller('mainCtrl', function($scope, $rootScope, $http, $location, $t
 	};
 	$scope.getUserData();
 	
+	$scope.isExistInCart = function(product_variant_id){
+		if($rootScope.cart.length > 0){
+			return $rootScope.cart.some(function(el){
+				console.log(el.product_variant_id == product_variant_id);
+				return el.product_variant_id == product_variant_id
+			});
+		}
+	}
+	$scope.addOneMoreInCart = function(product_variant_id){
+		if($rootScope.cart.length > 0){
+			var cartProduct = $rootScope.cart.find(function(el){
+				console.log(el.product_variant_id == product_variant_id);
+				if(el.product_variant_id == product_variant_id){
+					return el;
+				}
+			});
+			console.log(cartProduct);
+			$scope.updateCartQuantity(cartProduct.order_product_id, parseInt(cartProduct.qty)+1);
+		}
+	}
 	$scope.addToCart = function(product_variant_id){
 		if($rootScope.userdata.user_id){
 			var postdata = {
@@ -122,6 +142,8 @@ mainApp.controller('mainCtrl', function($scope, $rootScope, $http, $location, $t
 		return totalcartprice;
 	};
 	$scope.updateCartQuantity = function(order_product_id, qty){
+		console.log(qty);
+		if(qty==null){return;}
 		var postdata = {
 			'user_id'			: $rootScope.userdata.user_id,
 			'order_product_id'	: order_product_id,
@@ -152,7 +174,8 @@ mainApp.controller('headerCtrl', function($scope, $rootScope, $http, $compile, f
 	$scope.getBrands = function(){
 		$http.get(baseUrl+"api/frontend/get/brands")
 		.then(function(response){
-			$scope.brands = response.data;	
+			$scope.brands = response.data;
+			$scope.selectPickerRefresh();
 		});
 	};
 	$scope.getBrands();
@@ -245,6 +268,48 @@ mainApp.controller('headerCtrl', function($scope, $rootScope, $http, $compile, f
 });
 
 mainApp.controller('productListCtrl', function($scope, $rootScope, $http, $compile, $routeParams, form) {
+    $scope.getProductList = function(){
+		if($scope.productParams === undefined) {
+			$scope.productParams = {
+				search_key:getUrlParam('search_key',''),
+				items_per_page:'10',
+				current_offset:1,
+				order_by:'popularity',
+				order_type:'desc'
+			};
+		}
+		
+		$scope.productParams.price_start = angular.element("#headerCtrl").scope().filter.price_start;
+		$scope.productParams.price_end = angular.element("#headerCtrl").scope().filter.price_end;
+		$scope.productParams.brands = angular.element("#headerCtrl").scope().filter.brands;
+		
+		if($scope.products === undefined) {
+			$scope.products = {};
+		}
+		
+		// $scope.productParams.draw = $scope.draw++;
+		if($routeParams.cat_type != undefined && $routeParams.cat_slug != undefined){
+			$scope.productParams.cat_type = $routeParams.cat_type;
+			$scope.productParams.cat_slug = $routeParams.cat_slug;
+			$rootScope.title = 'Balajieshop | '+$routeParams.cat_slug;
+		}
+		
+		var queryStr = baseUrl +'api/frontend/products';
+		var concate = '?';
+		angular.forEach($scope.productParams, function(value, key) {
+			queryStr += concate+key + '=' + value;
+			concate = '&';
+		});
+
+		$http.get(queryStr)
+		.then(function(response){
+			$scope.products = response.data;		
+		});
+	}
+	$scope.getProductList();
+});
+
+mainApp.controller('checkoutCtrl', function($scope, $rootScope, $http, $compile, $routeParams, form) {
     $scope.getProductList = function(){
 		if($scope.productParams === undefined) {
 			$scope.productParams = {

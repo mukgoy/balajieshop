@@ -89,8 +89,8 @@ display: none;
 		
 </div>
 
-
-<get-template item='assets/html/products/header.html'></get-template>
+<?php include('./assets/html/products/header.html'); ?>
+<!--<get-template item='assets/html/products/header.html'></get-template>-->
 
 <div class="javascript-files">
 <script src="<?php echo $cdn_url; ?>assets/lib/jquery/jquery.min.js" ></script>

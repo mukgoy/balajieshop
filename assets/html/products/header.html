@@ -72,36 +72,37 @@
 		<li ng-repeat="item in cart">
 			<div class="cart-item">
 				<div class="item-text dish-list-text">
-					<h4>{{item.product_title}}
-					{{item.variant_title}}<h6>
+					<h4>{{item.product_title}} {{item.variant_title}}</h4>
 					<p>{{item.brand_title}}</p>
 					<h5>Qty: <input type="number" class="form-control" min="1" 
 					ng-model="item.qty" 
 					ng-value="item.qty"
 					ng-change="updateCartQuantity(item.order_product_id, item.qty)"
-					> x &#x20b9;{{item.sell_price}}</h5>
+					> x &#x20b9; {{item.sell_price}}</h5>
 				</div><!-- end item-text -->
 
 				<div class="item-img">
 					<a ng-href="#"><img ng-src="{{cdnUrl+item.image}}" on-error-src="{{cdnUrl}}assets/images/no_image/product.jpg" class="img-responsive" alt="cart-item-img" /></a>
 				</div><!-- end item-img -->
 				
-				<h4 class="total">Total: <span>${{item.qty*item.sell_price}}</span></h4>
+				<h4 class="total">Total: <span>&#x20b9; {{item.qty*item.sell_price}}</span></h4>
 				
 				<div class="item-close">
 					<button class="btn" ng-click="updateCartQuantity(item.order_product_id, 0)"><span><i class="fa fa-times-circle"></i></span></button>
 				</div><!-- end item-close -->
 			</div><!-- end cart-item -->
 		</li>
-		
-		
 	</ul>
 	
-	<div class="cart-info text-right">
+	<div class="cart-info text-right" ng-if="cart.length>0">
 		<h4>Item(s) : <span>{{cart.length}}</span></h4>
-		<h4>Total Price: <span>${{getCartTotlaPrice()}}</span></h4>
-		<a ng-href="shopping-cart.html" class="btn btn-black">View Cart</a>
-		<a ng-href="checkout.html" class="btn btn-orange">Checkout</a>
+		<h4>Total Price: <span>&#x20b9; {{getCartTotlaPrice()}}</span></h4>
+		<a ng-href="{{baseUrl}}" class="btn btn-black" onclick="$('.canvas').click();">Continue Shopping</a>
+		<a ng-href="checkout" class="btn btn-orange" onclick="$('.canvas').click();">Checkout</a>
+	</div><!-- end cart-info -->
+	<div class="cart-info text-center" ng-if="cart.length==0">
+		<h4>Empty Cart</h4>
+		<a ng-href="{{baseUrl}}" class="btn btn-black" onclick="$('.canvas').click();">Strat Shopping</a>
 	</div><!-- end cart-info -->
 </div><!-- shopping-cart-sidebar -->
 

@@ -6,6 +6,7 @@ mainApp.config(function($routeProvider, $locationProvider, $sceDelegateProvider)
 	.when("/signup", 				{templateUrl : "assets/html/products/list.html"})
 	.when("/forgot-password", 		{templateUrl : "assets/html/products/list.html"})
 	.when("/reset-password", 		{templateUrl : "assets/html/products/list.html"})
+	.when("/checkout", 				{templateUrl : "assets/html/orders/checkout.html"})
 	.when("/products/:cat_type/:cat_slug", {templateUrl : "assets/html/products/list.html"})
 	.otherwise({redirectTo: "/"});
 	

@@ -54,8 +54,15 @@
 								</select>
 								
 								</br>
-								<button  style="margin-top: 5px;" class="btn" ng-click="addToCart(variant.product_variant_id)" >
+								<button  style="margin-top: 5px;" class="btn" 
+									ng-if="!isExistInCart(variant.product_variant_id)"
+									ng-click="addToCart(variant.product_variant_id)" >
 									Add to cart<span><i class="fa fa-shopping-cart"></i></span>
+								</button>
+								<button  style="margin-top: 5px;" class="btn btn-orange" 
+									ng-if="isExistInCart(variant.product_variant_id)"
+									ng-click="addOneMoreInCart(variant.product_variant_id)" >
+									One More<span><i class="fa fa-shopping-cart text-white"></i></span>
 								</button>
 							</div>
 						</div>
