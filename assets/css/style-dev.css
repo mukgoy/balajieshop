@@ -16,6 +16,9 @@
 .rounded-0,.rounded-0 .selectpicker{
 	border-radius: 0;
 }
+.border-right{
+	border-right: 1px #FF8734 solid;
+}
 
 .header .header-logo li a {
 
@@ -41,7 +44,7 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-.canvas-box .input-group-addon {
+.canvas-box-header{
     color: #fff;
 	padding: 6px 18px;
 }
@@ -81,5 +84,37 @@
     margin-bottom: 5px;
     margin-right: 5px;
 }
+.form-control.bootstrap-select button {
 
+    border-radius: 0px;
+    background: #f2f2f2;
+    box-shadow: none;
+    border: 0px;
+        border-left-color: currentcolor;
+        border-left-style: none;
+        border-left-width: 0px;
+    border-left: 4px solid #212121;
 
+}
+.form-page-links {
+    margin-top: 0px;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}

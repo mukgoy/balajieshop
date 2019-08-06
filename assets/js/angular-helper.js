@@ -1,27 +1,17 @@
 /* helper functions */
-function processResponse(data, $scope, formScope) {
-	if($scope === undefined){
-		 $scope = null;
-	}
-   console.log(data);
-    if (formScope) {
-        formScope.error = '';
-    }
+function processResponse($scope = null, formScope, data) {
 
+    console.log(data);
+    formScope.error = '';
     if (data.status == 'error') {
         if (typeof data.message === 'string') {
-            alert(data.message + " error");
+            $.notify(data.message, "error");
         } else {
-            if (formScope == undefined) {
-                console.log(data);
-                alert("Some thing is wronge error");
-            } else {			
-                formScope.error = data.message;
-            }
+            formScope.error = data.message;
         }
     }
     if (data.status == 'success') {
-        alert(data.message+" success");
+        $.notify(data.message, "success");
     }
     if (data.callback) {
         eval(data.callback);

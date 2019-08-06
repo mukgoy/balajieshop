@@ -11,4 +11,10 @@ class Get extends Apps {
 		echo jsonify($response);
 	}
 	
+	public function brands(){
+		$this->load->model('frontend/brand_model');		
+		$response = $this->brand_model->get();
+		// $response['status'] = 'success';
+		echo jsonify($response);
+	}
 }

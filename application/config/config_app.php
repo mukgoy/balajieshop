@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['islive'] = false;
 
 $config['public_html']	= '';
-$config['base_folder']	= 'balajieshop/';
+$config['base_folder']	= 'bs/';
 $config['base_path']	= $config['public_html'].$config['base_folder'];
 
 $config['http']= (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";

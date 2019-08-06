@@ -4,11 +4,14 @@ mainApp.controller('mainCtrl', function($scope, $rootScope, $http, $location, $t
 	$rootScope.baseUrl = baseUrl;
 	$rootScope.cdnUrl = cdnUrl;
 	$rootScope.title = 'Balajieshop';
+	
+	$rootScope.userdata = '';
+	$rootScope.cart = {};
+	
     $rootScope.redirect = function(path) {
         $location.path(path).replace();
     };
 	
-		
     /* chechbox select all*/
     $scope.isAllSelected = function(list) {
         return list.length && list.every(function(item) { return item.checked; });
@@ -48,12 +51,6 @@ mainApp.controller('mainCtrl', function($scope, $rootScope, $http, $location, $t
 
     $scope.selectPickerRefresh = function(){
 		$timeout(function () {
-			$('.selectpicker').selectpicker({
-				container: 'body'   
-			});
-			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-				$('.selectpicker').selectpicker('mobile');
-			}
 			$('.selectpicker').selectpicker('refresh');
 		},50);
 	}
@@ -82,6 +79,59 @@ mainApp.controller('mainCtrl', function($scope, $rootScope, $http, $location, $t
 		});
 	};
 	$scope.getCategories();
+
+	$scope.getUserData = function(){
+		$http.get(baseUrl+"api/frontend/user/get_userdata")
+		.then(function(response){
+			if(response.data){
+				$rootScope.userdata = response.data;
+				$scope.getCart();
+			}
+		});
+	};
+	$scope.getUserData();
+	
+	$scope.addToCart = function(product_variant_id){
+		if($rootScope.userdata.user_id){
+			var postdata = {
+				'user_id'			: $rootScope.userdata.user_id,
+				'product_variant_id': product_variant_id,
+			};
+			form.submit(baseUrl+"api/frontend/cart/addtocart", postdata)
+			.then(function(response) {
+				$rootScope.cart = response.data;	
+			});
+		}else{
+			loginBoxOpen();
+		}
+	};
+	$scope.getCart = function(){
+		var postdata = {
+			'user_id'			: $rootScope.userdata.user_id
+		};
+		form.submit(baseUrl+"api/frontend/cart/getcart", postdata)
+		.then(function(response) {
+			$rootScope.cart = response.data;
+		});
+	};
+	$scope.getCartTotlaPrice = function(){
+		totalcartprice = 0;
+		angular.forEach($rootScope.cart, function(value, key) {
+			totalcartprice += value.qty*value.sell_price;
+		});
+		return totalcartprice;
+	};
+	$scope.updateCartQuantity = function(order_product_id, qty){
+		var postdata = {
+			'user_id'			: $rootScope.userdata.user_id,
+			'order_product_id'	: order_product_id,
+			'qty'				: qty,
+		};
+		form.submit(baseUrl+"api/frontend/cart/update_cart_quantity", postdata)
+		.then(function(response) {
+			$rootScope.cart = response.data;	
+		});
+	};
 	
 });
 
@@ -89,7 +139,7 @@ mainApp.controller('appCtrl', function($scope, $http, $compile) {
     
 });
 
-mainApp.controller('headerCtrl', function($scope, $rootScope, $http, $compile) {
+mainApp.controller('headerCtrl', function($scope, $rootScope, $http, $compile, form) {
 	$scope.search_key = '';
 	$scope.search_autocomplete = function(){
 		$scope.draw++;
@@ -98,9 +148,103 @@ mainApp.controller('headerCtrl', function($scope, $rootScope, $http, $compile) {
 			$scope.search_autocomplete_data = response.data;		
 		});
 	}
+	
+	$scope.getBrands = function(){
+		$http.get(baseUrl+"api/frontend/get/brands")
+		.then(function(response){
+			$scope.brands = response.data;	
+		});
+	};
+	$scope.getBrands();
+	
+	$scope.filter = {
+		price_start: 0,
+		price_end: 10000,
+		brands : [],
+	};
+	
+	$scope.resetFilters = function(){
+		$scope.filter = {
+			price_start: 0,
+			price_end: 10000,
+			brands : [],
+		};
+		$scope.selectPickerRefresh();
+	};
+	
+	$scope.applyFilters = function(){
+		angular.element("#productListCtrl").scope().getProductList();
+	};
+	
+	$scope.isLogin = false;
+	$scope.register = {
+		name:'',
+		email:'',
+		password:'',
+		cpassword:'',
+		
+	};
+	
+	$scope.login = {
+		email:'',
+		password:'',
+	};
+	
+	$scope.optemail = {
+		email:'',
+		otp_email:'',
+	};
+	
+	$scope.registerSubmit = function(){
+		form.submit(baseUrl+"api/frontend/user/register", $scope.register)
+		.then(function(response) {
+			processResponse($scope, $scope.register, response.data);
+			$(".register-box").fadeOut()
+			$(".otp-email-box").fadeIn();
+			$scope.optemail.email = $scope.register.email;
+		});
+	};
+	
+	$scope.loginSubmit = function(){
+		form.submit(baseUrl+"api/frontend/user/login", $scope.login)
+		.then(function(response) {
+			processResponse($scope, $scope.login, response.data);
+			if(response.data.status == 'success'){
+				$(".canvas-box").fadeOut();
+				$(".main-box").fadeIn();
+				$(".main-view").fadeIn();
+				$("#footer").fadeIn();
+				$scope.getUserData();
+			}
+		});
+	};
+	
+	$scope.otpEmailResend = function(){
+		form.submit(baseUrl+"api/frontend/user/resend_otp_email", $scope.optemail)
+		.then(function(response) {
+			processResponse($scope, $scope.register, response.data);
+		});
+	};
+	
+	$scope.otpEmailSubmit = function(){
+		form.submit(baseUrl+"api/frontend/user/verify_otp_email", $scope.optemail)
+		.then(function(response) {
+			processResponse($scope, $scope.optemail, response.data);
+			
+			if(response.data.status == 'success'){
+				// $(".otp-email-box").fadeOut();
+				$(".canvas-box").fadeOut();
+				$(".main-box").fadeIn();
+				$(".main-view").fadeIn();
+				$("#footer").fadeIn();
+			}
+			
+		});
+	};
+
 });
 
-mainApp.controller('productListCtrl', function($scope, $rootScope, $http, $compile, $routeParams) {
+mainApp.controller('productListCtrl', function($scope, $rootScope, $http, $compile, $routeParams, form) {
     $scope.getProductList = function(){
 		if($scope.productParams === undefined) {
 			$scope.productParams = {
@@ -108,12 +252,14 @@ mainApp.controller('productListCtrl', function($scope, $rootScope, $http, $compi
 				items_per_page:'10',
 				current_offset:1,
 				order_by:'popularity',
-				order_type:'desc',
-				price_start: 0,
-				price_end: 10000,
-				brands : [],
+				order_type:'desc'
 			};
 		}
+		
+		$scope.productParams.price_start = angular.element("#headerCtrl").scope().filter.price_start;
+		$scope.productParams.price_end = angular.element("#headerCtrl").scope().filter.price_end;
+		$scope.productParams.brands = angular.element("#headerCtrl").scope().filter.brands;
+		
 		if($scope.products === undefined) {
 			$scope.products = {};
 		}

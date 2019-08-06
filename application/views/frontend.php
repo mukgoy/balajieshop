@@ -51,7 +51,7 @@ display: none;
 							<span><i class="fa fa-filter"></i></span>
 						</a></li>
 						<li class="shopping-cart"><a ng-href="" id="shc-side-open">
-							<span><i class="fa fa-shopping-cart"></i></span><span class="cart-badge">2</span>
+							<span><i class="fa fa-shopping-cart"></i></span><span class="cart-badge" ng-if="cart.length">{{cart.length}}</span>
 						</a></li>
 						<li class="search search-box-open"><a ng-href="">
 							<span><i class="fa fa-search"></i></span>
@@ -97,6 +97,7 @@ display: none;
 <script src="<?php echo $cdn_url; ?>assets/lib/bootstrap/bootstrap.min.js" ></script>
 <script src="<?php echo $cdn_url; ?>assets/lib/bootstrap/bootstrap-select.js" ></script>
 <script src="<?php echo $cdn_url; ?>assets/lib/custom/custom-navigation.js" ></script>
+<script src="<?php echo $cdn_url; ?>assets/lib/notify/notify.js"></script>
 
 <script src="<?php echo $cdn_url; ?>assets/lib/angularjs/angular.min.js" ></script>
 <script src="<?php echo $cdn_url; ?>assets/lib/angularjs/angular-route.min.js" ></script>

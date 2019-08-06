@@ -1,29 +1,32 @@
 <div ng-controller="appCtrl">
-<div ng-controller="productListCtrl">
+<div ng-controller="productListCtrl" id="productListCtrl">
 <title>{{title}}</title>
   
            
        
 	
 <!--========= PAGE-COVER =========-->
-<div class="page-cover">
-	<div class="container-fluid row">
-		<div class="col-xs-12 col-sm-12 text-right p0 text-white">
-			<span class="pull-right btn filter-box-open">
-				<i class="fa fa-filter"></i>
+<div class="page-cover" style="padding: 3px;">
+	<div class="container-fluid row">		
+		<div class="col-xs-6 text-center p0 text-white border-right">
+			<div style="display: inline-block;position: relative;">
+				<span class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<i class="fa fa-sort-amount-down"></i> Popularity
+				</span>
+				<ul class="dropdown-menu dropdown-alerts">
+					<li><a href="#"><div>Popularity</div></a></li>
+					<li class="divider"></li>
+					<li><a href="#"><div>Price</div></a></li>
+					<li class="divider"></li>
+					<li><a href="#"><div>Title</div></a></li>
+				</ul>
+				
+			</div>
+		</div>
+		<div class="col-xs-6 text-center p0 text-white">
+			<span class="btn filter-box-open">
+				<i class="fa fa-filter"></i> Filter
 			</span>
-			<span class="pull-right btn">
-				<i class="fa fa-sort-amount-down"></i>
-			</span>
-			<span class="pull-right btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-				Popularity
-			</span>
-			<ul class="dropdown-menu pull-right" role="menu">
-				<li><a href="#">Popularity</a></li>
-				<li><a href="#">Price</a></li>
-				<li><a href="#">Title</a></li>
-			</ul>
-			
 		</div>
 	</div><!-- end container-fluid -->
 </div><!-- end page-cover -->
@@ -32,7 +35,7 @@
 	<div class="text-center menu">
 		<div class="tab-content">
 			<ul class="list-unstyled">
-					<li ng-repeat="product in products track by $index">
+					<li ng-repeat="product in products">
 						<div class="dish-list">
 							<img ng-src="{{cdnUrl+variant.image}}" on-error-src="{{cdnUrl}}assets/images/no_image/product.jpg" class="img-responsive" alt="dish-menu" />
 							<div class="dish-list-text">
@@ -45,13 +48,13 @@
 								</h5>
 								<select class="border-0" style="font-size: 16px;"
 								ng-model="variant" ng-init="variant=product.variants[0]">
-									<option ng-repeat="variant in product.variants track by $index" ng-value="variant">
-									{{variant.variant_value}} {{variant.variant_title}}
+									<option ng-repeat="variant1 in product.variants track by $index" ng-value="variant1">
+									{{variant1.variant_title}}
 									</option>
 								</select>
 								
 								</br>
-								<button  style="margin-top: 5px;" class="btn">
+								<button  style="margin-top: 5px;" class="btn" ng-click="addToCart(variant.product_variant_id)" >
 									Add to cart<span><i class="fa fa-shopping-cart"></i></span>
 								</button>
 							</div>

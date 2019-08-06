@@ -16,6 +16,12 @@ class Product_model extends CI_Model{
 		)),"]") as `variants`');
 		$this->db->select("product_id");
 		$this->db->where("status",1);
+		if($this->input->get('price_start')){
+			$this->db->where('sell_price >= ', $this->input->get('price_start'));
+		}
+		if($this->input->get('price_end')){
+			$this->db->where('sell_price <= ', $this->input->get('price_end'));
+		}
 		$this->db->group_by('product_id');
 		$query = $this->db->get('product_variants');
 		$product_variants = $this->db->last_query();
@@ -26,6 +32,7 @@ class Product_model extends CI_Model{
 		$this->db->join("brands", 'brands.brand_id = products.brand_id', 'left');
 		$this->filters($cat_type, $cat_slug,$category_id);
 		$this->db->where("status",1);
+		$this->db->where("variants is not null");
 		$current_page = $this->input->get('current_page') ? $this->input->get('current_page') : 1;
 		$this->db->limit(20, ($current_page-1)*10);
 		$query = $this->db->get('products');
@@ -54,6 +61,10 @@ class Product_model extends CI_Model{
 		}
 		elseif($cat_type){
 			$this->db->where($this->categorylist()[$cat_type]['primary'], $category_id);
+		}
+		
+		if($this->input->get('brands')){
+			$this->db->where_in('products.brand_id', explode(',',$this->input->get('brands')));
 		}
 	}
 	

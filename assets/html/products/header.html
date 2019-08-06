@@ -1,4 +1,4 @@
-<div ng-controller="headerCtrl">
+<div ng-controller="headerCtrl" id="headerCtrl">
 <!--============ SIDE-NAV =============-->
 <div class="sidenav-content">
 	<div id="mySidenav" class="sidenav" >
@@ -69,50 +69,37 @@
 <!--================ SHOPPING-CART ==============-->
 <div id="shopping-cart-sidebar" class="shc-sidebar">
 	<ul class="list-unstyled cart-list">
-		<li>
+		<li ng-repeat="item in cart">
 			<div class="cart-item">
 				<div class="item-text dish-list-text">
-					<h4><a ng-href="#">Breakfast-3</a></h4>
-					<p>Lorem ipsum,dolor</p>
-					<h5>Qty: <input type="number" class="form-control" min="1" value="1"> x $45</h5>
+					<h4>{{item.product_title}}
+					{{item.variant_title}}<h6>
+					<p>{{item.brand_title}}</p>
+					<h5>Qty: <input type="number" class="form-control" min="1" 
+					ng-model="item.qty" 
+					ng-value="item.qty"
+					ng-change="updateCartQuantity(item.order_product_id, item.qty)"
+					> x &#x20b9;{{item.sell_price}}</h5>
 				</div><!-- end item-text -->
 
 				<div class="item-img">
-					<a ng-href="#"><img src="assets/images/dish-breakfast-3.png" class="img-responsive" alt="cart-item-img" /></a>
+					<a ng-href="#"><img ng-src="{{cdnUrl+item.image}}" on-error-src="{{cdnUrl}}assets/images/no_image/product.jpg" class="img-responsive" alt="cart-item-img" /></a>
 				</div><!-- end item-img -->
 				
-				<h4 class="total">Total: <span>$45</span></h4>
+				<h4 class="total">Total: <span>${{item.qty*item.sell_price}}</span></h4>
 				
 				<div class="item-close">
-					<button class="btn"><span><i class="fa fa-times-circle"></i></span></button>
+					<button class="btn" ng-click="updateCartQuantity(item.order_product_id, 0)"><span><i class="fa fa-times-circle"></i></span></button>
 				</div><!-- end item-close -->
 			</div><!-- end cart-item -->
 		</li>
 		
-		<li>
-			<div class="cart-item">
-				<div class="item-text dish-list-text">
-					<h4><a ng-href="#">Dinner-4</a></h4>
-					<p>Lorem ipsum,dolor</p>
-					<h5>Qty: <input type="number" class="form-control" min="1" value="1"> x $45</h5>
-				</div><!-- end item-text -->
-
-				<div class="item-img">
-					<a ng-href="#"><img src="assets/images/dish-dinner-4.png" class="img-responsive" alt="cart-item-img" /></a>
-				</div><!-- end item-img -->
-				
-				<h4 class="total">Total: <span>$45</span></h4>
-				
-				<div class="item-close">
-					<button class="btn"><span><i class="fa fa-times-circle"></i></span></button>
-				</div><!-- end item-close -->
-			</div><!-- end cart-item -->
-		</li>
+		
 	</ul>
 	
 	<div class="cart-info text-right">
-		<h4>Item(s) : <span>2</span></h4>
-		<h4>Total Price: <span>$90.00</span></h4>
+		<h4>Item(s) : <span>{{cart.length}}</span></h4>
+		<h4>Total Price: <span>${{getCartTotlaPrice()}}</span></h4>
 		<a ng-href="shopping-cart.html" class="btn btn-black">View Cart</a>
 		<a ng-href="checkout.html" class="btn btn-orange">Checkout</a>
 	</div><!-- end cart-info -->
@@ -123,51 +110,52 @@
 	<div class="user-prf-sidebar-img text-center" style="background:url('{{cdnUrl}}assets/images/usr-prf-back-restaurant.jpg'); background-size:cover;">
 		<div class="overlay">
 			<img ng-src="{{cdnUrl}}assets/images/noprofile.gif" class="img-responsive img-circle" alt="user-profile" />
-			<h3>-- James Anderson --</h3>
+			<h3 ng-if="!userdata">-- Guest User --</h3>
+			<h3 ng-if="userdata">-- {{userdata.fullname}} --</h3>
 		</div><!-- end overlay -->
 	</div><!-- end user-prf-sidebar-img -->
 	
 	<div class="user-prf-sidebar-links">
 		<ul class="list-unstyled">
-			<li><a ng-href="user-profile.html"><span><i class="fa fa-user"></i></span>My Profile</a></li>
-			<li><a ng-href="edit-profile.html"><span><i class="fa fa-pencil-alt"></i></span>Edit Profile</a></li>
-			<li><a ng-href="forget-password.html"><span><i class="fa fa-question"></i></span>Forget Password</a></li>
-			<li><a ng-href="reset-password.html"><span><i class="fa fa-sync"></i></span>Reset Password</a></li>
-			<li><a ng-href="#"><span><i class="fa fa-sign-out-alt"></i></span>Sign Out</a></li>
+			<li ng-if="!userdata" class="login-box-open"><a ng-href=""><span><i class="fa fa-lock "></i></span>Login</a></li>
+			<li ng-if="!userdata" class="register-box-open"><a ng-href=""><span><i class="fa fa-user-plus "></i></span>Register</a></li>
+			<li ng-if="!userdata"><a ng-href="forget-password.html"><span><i class="fa fa-question"></i></span>Forget Password</a></li>
+			<li ng-if="userdata"><a ng-href="user-profile.html"><span><i class="fa fa-user"></i></span>My Profile</a></li>
+			<li ng-if="userdata"><a ng-href="edit-profile.html"><span><i class="fa fa-pencil-alt"></i></span>Edit Profile</a></li>
+			<li ng-if="userdata"><a ng-href="reset-password.html"><span><i class="fa fa-sync"></i></span>Reset Password</a></li>
+			<li ng-if="userdata"><a ng-href="#"><span><i class="fa fa-sign-out-alt"></i></span>Sign Out</a></li>
 		</ul>
 	</div><!-- end user-prf-sidebar-links -->
 </div><!-- end user-profile-sidebar -->
 
-<!--========= Search-page =========-->
 <div class="canvas canvas-box search-box">
 	<div class="btn-orange">
 		<div class="form-group input-group search-input-group m0">
-			<span class="input-group-addon main-box-open"><i class="fa fa-arrow-left"></i></span>
+			<span class="input-group-addon main-box-open canvas-box-header"><i class="fa fa-arrow-left"></i></span>
 			<input class="form-control p0 search-input" type="text" placeholder="SEARCH"
 				ng-model="search_key" 
 				ng-keyup="search_autocomplete()">
-			<span class="input-group-addon search-input-icon" ng-if="search_key==''">
+			<span class="input-group-addon search-input-icon canvas-box-header" ng-if="search_key==''">
 				<i class="fa fa-search"></i>
 			</span>
-			<span class="input-group-addon search-input-icon" ng-if="search_key!=''" ng-click="$parent.search_key='';search_autocomplete();">
+			<span class="input-group-addon search-input-icon canvas-box-header" ng-if="search_key!=''" ng-click="$parent.search_key='';search_autocomplete();">
 				<i class="fa fa-times"></i>
 			</span>
 		</div>
 	</div>
 	<div class="btn-orange" ng-if="search_autocomplete_data.length>0">
 		<div class="list-group panel">
-			<a href="contact.html" class="list-group-item"
+			<a ng-href="?search_key={{list.title}}" class="list-group-item main-box-open"
 			ng-repeat="list in search_autocomplete_data">{{list.title}}</a>
 		</div>
 	</div>
 </div><!--========= end Search-page =========-->
 
-<!--========= Filter-page =========-->
 <div class="canvas canvas-box filter-box">
 	<div class="btn-orange">
 		<div class="form-group input-group search-input-group m0">
-			<span class="input-group-addon main-box-open"><i class="fa fa-arrow-left"></i></span>
-			<span class="input-group-addon canvas-box-text">Filter By</span>
+			<span class="input-group-addon main-box-open canvas-box-header"><i class="fa fa-arrow-left"></i></span>
+			<span class="input-group-addon canvas-box-text canvas-box-header">Filter By</span>
 		</div>
 	</div>
 	<div class="btn-orange_">
@@ -177,35 +165,37 @@
 					<div class="col-xs-12 p0">
 						<label>Price Range</label>
 					</div>
-					<div class="col-xs-6 p0">
-						<input class="form-control rounded-0" placeholder="Price" type="text">
+					<div class="col-xs-6 custom-form" style="padding-left: 0px;">
+						<input class="form-control rounded-0" ng-model="filter.price_start" placeholder="Min Price" type="text">
 					</div>
-					<div class="col-xs-6 p0">
-						<input class="form-control rounded-0" placeholder="Price" type="text">
+					<div class="col-xs-6 custom-form" style="padding-right: 0px;">
+						<input class="form-control rounded-0" ng-model="filter.price_end" placeholder="Max Price" type="text">
 					</div>
 					</br>
 					<div class="col-xs-12 p0" style="padding-top: 15px;">
 						<label>Brands</label>
 					</div>
 					<div class="col-xs-12 p0">
-						<select class="selectpicker rounded-0 form-control" multiple="" data-live-search="true" tabindex="-98">
-						  <option value="Mustard">Mustard</option>
-						  <option value="Ketchup">Ketchup</option>
-						  <option value="Relish">Relish</option>
+						<select class="selectpicker rounded-0 form-control" ng-model="filter.brands" multiple="" title="Select Brands" data-live-search="true" tabindex="-98" data-selected-text-format="count > 3">
+						  <option ng-repeat="brand in brands" ng-value="brand.brand_id">{{brand.title}}</option>
 						</select>
+					</div>
+					<div class="col-xs-12"></br></div>
+					<div class="col-xs-12 p0 text-right">
+						<button class="btn btn-orange" ng-click="resetFilters()">Reset<span></span></button>
+						<button class="btn btn-orange main-box-open" ng-click="applyFilters()">Apply<span></span></button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div><!--========= end Search-page =========-->
+</div>
 
-<!--========= product-sort-page =========-->
 <div class="canvas canvas-box sort-box">
 	<div class="btn-orange">
 		<div class="form-group input-group search-input-group m0">
-			<span class="input-group-addon main-box-open"><i class="fa fa-arrow-left"></i></span>
-			<span class="input-group-addon canvas-box-text">Sort By</span>
+			<span class="input-group-addon main-box-open canvas-box-header"><i class="fa fa-arrow-left"></i></span>
+			<span class="input-group-addon canvas-box-text canvas-box-header">Sort By</span>
 		</div>
 	</div>
 	<div class="btn-orange">
@@ -226,4 +216,160 @@
 	</div>
 </div><!--========= end Search-page =========-->
 
+<div class="canvas canvas-box login-box">
+	<div class="container-fluid text-center">
+		</br>
+		<div class="innerpage-heading">
+			<h3>Login Now</h3>
+		</div><!-- end innerpage-heading -->
+		
+		<form class="custom-form"> 
+			<div class="form-group">
+				 <div class="input-group">
+					<input type="text" class="form-control" placeholder="Email or Phone Number"  ng-model="login.email"/>
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+				 </div>
+			</div>
+
+			<div class="form-group">
+				 <div class="input-group">
+					<input type="password" class="form-control" placeholder="Password"  ng-model="login.password"/>
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+				</div>
+			</div>
+			<button class="btn btn-orange btn-radius" ng-click="loginSubmit()">Login</button>
+		</form>
+		
+		<div class="form-page-links">
+			<a href="forgot-password.html">Forgot Password ?</a>
+			<p> New Here ? <a ng-href="" class="register-box-open">Register Now</a></p>
+		</div><!-- end form-page-links -->
+		
+		<div class="form-page-connect-social">
+			<h4>Login with</h4>
+			<ul class="list-unstyled">
+				<li><button class="btn btn-block fb"><span><i class="fab fa-facebook-f"></i></span>Facebook</button></li>
+				<li><button class="btn btn-block gm"><span><i class="fab fa-google"></i></span>Gmail</button></li>
+			</ul>
+		</div><!-- end form-page-connect-social -->
+	</div><!-- end container-fluid -->
+</div>
+
+<div class="canvas canvas-box register-box">
+	<div class="container-fluid text-center">
+		</br>
+		<div class="innerpage-heading">
+			<h3>Register Now</h3>
+		</div><!-- end innerpage-heading -->
+		
+		<form class="custom-form text-left">		
+			<div class="form-group">
+				 <div class="input-group">
+					<input type="text" class="form-control" ng-model="register.name" placeholder="Name"  />
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+				 </div>
+				 <p class="text-danger" ng-bind-html="register.error.name"></p>
+			</div>
+			
+			<div class="form-group">
+				 <div class="input-group">
+					<input type="email" class="form-control" ng-model="register.email" placeholder="Email"  />
+					<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+				</div>
+				<p class="text-danger" ng-bind-html="register.error.email"></p>
+			</div>
+			
+			<div class="form-group">
+				 <div class="input-group">
+					<input type="password" class="form-control" ng-model="register.password" placeholder="Password"  />
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+				</div>
+				<p class="text-danger" ng-bind-html="register.error.password"></p>
+			</div>
+			
+			<div class="form-group">
+				 <div class="input-group">
+					<input type="password" class="form-control" ng-model="register.cpassword" placeholder="Confirm Password"  />
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+				</div>
+				<p class="text-danger" ng-bind-html="register.error.cpassword"></p>
+			</div>
+			
+			<button class="btn btn-orange btn-radius" ng-click="registerSubmit()">Register</button>
+		</form>
+                        
+		
+		<div class="form-page-links">
+			<p>Already Have An Account ? <a ng-href="" class="login-box-open">Login Now</a></p>
+		</div><!-- end form-page-links -->
+		
+		<div class="form-page-connect-social">
+			<h4>Login with</h4>
+			<ul class="list-unstyled">
+				<li><button class="btn btn-block fb"><span><i class="fab fa-facebook-f"></i></span>Facebook</button></li>
+				<li><button class="btn btn-block gm"><span><i class="fab fa-google"></i></span>Gmail</button></li>
+			</ul>
+		</div><!-- end form-page-connect-social -->
+	</div><!-- end container-fluid -->
+</div>
+
+<div class="canvas canvas-box otp-email-box">
+	<div class="container-fluid text-center">
+		</br>
+		<div class="innerpage-heading">
+			<h3>Verify Your Email</h3>
+		</div><!-- end innerpage-heading -->
+		
+		<form class="custom-form text-left">		
+			<div class="form-group">
+				 <div class="input-group">
+					<input type="text" class="form-control" ng-model="optemail.email" placeholder="Email"  />
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+				 </div>
+				 <p class="text-danger" ng-bind-html="optemail.error.email"></p>
+			</div>
+			<div class="form-group">
+				 <div class="input-group">
+					<input type="text" class="form-control" ng-model="optemail.otp_email" placeholder="Enter OTP received by email"  />
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+				 </div>
+				 <p class="text-danger" ng-bind-html="optemail.error.otp_email"></p>
+			</div>
+			
+			<button class="btn btn-orange btn-radius" ng-click="otpEmailResend()">Resend</button>
+			<button class="btn btn-orange btn-radius" ng-click="otpEmailSubmit()">Verify</button>
+		</form>
+                        
+		
+		<div class="form-page-links">
+			<p>Already Have An Account ? <a ng-href="" class="login-box-open">Login Now</a></p>
+		</div><!-- end form-page-links -->
+		
+		<div class="form-page-connect-social">
+			<h4>Login with</h4>
+			<ul class="list-unstyled">
+				<li><button class="btn btn-block fb"><span><i class="fab fa-facebook-f"></i></span>Facebook</button></li>
+				<li><button class="btn btn-block gm"><span><i class="fab fa-google"></i></span>Gmail</button></li>
+			</ul>
+		</div><!-- end form-page-connect-social -->
+	</div><!-- end container-fluid -->
+</div>
+
+<div class="modal fade" id="usememodel" role="dialog">
+	<div class="modal-dialog modal-sm">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Modal Header</h4>
+		</div>
+		<div class="modal-body">
+		  <p>This is a small modal.</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+</div>
+		
 </div>
