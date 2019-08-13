@@ -6,7 +6,7 @@ mainApp.controller('mainCtrl', function($scope, $rootScope, $http, $location, $t
 	$rootScope.title = 'Balajieshop';
 	
 	$rootScope.userdata = '';
-	$rootScope.cart = {};
+	$rootScope.cart = [];
 	
     $rootScope.redirect = function(path) {
         $location.path(path).replace();
@@ -310,6 +310,7 @@ mainApp.controller('productListCtrl', function($scope, $rootScope, $http, $compi
 });
 
 mainApp.controller('checkoutCtrl', function($scope, $rootScope, $http, $compile, $routeParams, form) {
+	console.log($rootScope.userdata);
     $scope.getProductList = function(){
 		if($scope.productParams === undefined) {
 			$scope.productParams = {
