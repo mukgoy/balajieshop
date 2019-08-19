@@ -7,28 +7,6 @@
 	
 <!--========= PAGE-COVER =========-->
 <div class="page-cover" style="padding: 3px;">
-	<div class="container-fluid row">		
-		<div class="col-xs-6 text-center p0 text-white border-right">
-			<div style="display: inline-block;position: relative;">
-				<span class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					<i class="fa fa-sort-amount-down"></i> Popularity
-				</span>
-				<ul class="dropdown-menu dropdown-alerts">
-					<li><a href="#"><div>Popularity</div></a></li>
-					<li class="divider"></li>
-					<li><a href="#"><div>Price</div></a></li>
-					<li class="divider"></li>
-					<li><a href="#"><div>Title</div></a></li>
-				</ul>
-				
-			</div>
-		</div>
-		<div class="col-xs-6 text-center p0 text-white">
-			<span class="btn filter-box-open">
-				<i class="fa fa-filter"></i> Filter
-			</span>
-		</div>
-	</div><!-- end container-fluid -->
 </div><!-- end page-cover -->
 
 
@@ -37,7 +15,8 @@
 	<div id="checkout-page" >
 		<div class="container-fluid">
 			<div class="innerpage-heading text-center">
-				<h3>Your Order</h3>
+				<h3 ng-if="cart.length>0">Your Order</h3>
+				<h3 ng-if="cart.length==0">Your cart is empty</h3>
 				<a ng-href="{{baseUrl}}" class="btn btn-orange">Continue Shopping</a>
 			</div><!-- end innerpage-heading -->
 			
@@ -85,7 +64,11 @@
 				<div class="form-group">
 					 <select class="form-control">
 						<option selected>Choose Payment</option>
-						<option>VISA</option>
+						<option>VISA Credit Card Credit CardCredit CardCredit CardCredit Card Credit Card</option>
+						<option>VISA Credit Card Credit CardCredit CardCredit CardCredit Card Credit Card</option>
+						<option>VISA Credit Card Credit CardCredit CardCredit CardCredit Card Credit Card</option>
+						<option>VISA Credit Card Credit CardCredit CardCredit CardCredit Card Credit Card</option>
+						<option>VISA Credit Card Credit CardCredit CardCredit CardCredit Card Credit Card</option>
 						<option>Credit Card</option>
 						<option>Paypal</option>
 					 </select>
